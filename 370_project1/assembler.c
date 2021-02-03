@@ -2,6 +2,16 @@
  * Project 1
  * Assembler code fragment for LC-2K
  */
+// read in label
+// search array
+// mask neg
+// return opcode number
+// if .fill
+// if halt or noop
+// if add or nor
+// else and if beq
+// according appends
+// write to file
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,6 +21,11 @@
 
 int readAndParse(FILE *, char *, char *, char *, char *, char *);
 int isNumber(char *);
+struct label{
+    int address;
+    char name[7];
+};
+int search_array( struct label arr[] , int , char *);
 
 int
 main(int argc, char *argv[])
@@ -55,8 +70,43 @@ main(int argc, char *argv[])
     if (!strcmp(opcode, "add")) {
         /* do whatever you need to do for opcode "add" */
     }
-
+    
+   
+    struct label v1[100];
+    int arr_size= 0;   // index in array i.e arra
+    int i = 0;   // line #
+    while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){
+        if(*label){
+            v1[arr_size].address = i;
+            strcpy(v1[arr_size].name, label);;
+            fprintf(outFilePtr, "label is %s\n", v1[arr_size].name);
+            fprintf(outFilePtr, "address is %d\n", v1[arr_size].address);
+            arr_size++;
+        }
+        i++;
+    }
+    int temp = 0;
+    while (readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)) {
+        if(isNumber(arg2) != 1){
+            temp = search_array(v1, arr_size, arg2);
+            fprintf(outFilePtr, "address is %d\n", temp);
+        }
+    }
     return(0);
+}
+// My helper functions
+
+int search_array( struct label arr[], int size , char * label){
+    int i = 0;
+    int address = 0;
+    while (i < size){
+        if( strcmp(arr[i].name, label)){
+            address = arr[i].address;
+            return address;
+        }
+        i++;
+    }
+    return - 1;  //later change to exit
 }
 
 /*

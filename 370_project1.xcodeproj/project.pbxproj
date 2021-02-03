@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A9708D0F25CB03850097B03C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = A9708D0E25CB03850097B03C /* main.c */; };
+		A9708D0F25CB03850097B03C /* assembler.c in Sources */ = {isa = PBXBuildFile; fileRef = A9708D0E25CB03850097B03C /* assembler.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,8 @@
 
 /* Begin PBXFileReference section */
 		A9708D0B25CB03850097B03C /* 370_project1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 370_project1; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9708D0E25CB03850097B03C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		A9708D0E25CB03850097B03C /* assembler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = assembler.c; sourceTree = "<group>"; };
+		A9708D1625CB0C5F0097B03C /* test_1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_1.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +58,8 @@
 		A9708D0D25CB03850097B03C /* 370_project1 */ = {
 			isa = PBXGroup;
 			children = (
-				A9708D0E25CB03850097B03C /* main.c */,
+				A9708D0E25CB03850097B03C /* assembler.c */,
+				A9708D1625CB0C5F0097B03C /* test_1.txt */,
 			);
 			path = 370_project1;
 			sourceTree = "<group>";
@@ -118,7 +120,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9708D0F25CB03850097B03C /* main.c in Sources */,
+				A9708D0F25CB03850097B03C /* assembler.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
