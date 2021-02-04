@@ -28,6 +28,8 @@ struct label{
 int search_array( struct label arr[] , int , char *);
 int mask_neg(int);
 int opcode_num(char *);
+int check_offset(int);
+int check_decimal(int);
 
 int
 main(int argc, char *argv[])
@@ -57,50 +59,84 @@ main(int argc, char *argv[])
         exit(1);
     }
 
-    /* here is an example for how to use readAndParse to read a line from
-        inFilePtr */
-    if (! readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2) ) {
-        /* reached end of file */
-    }
-
-    /* this is how to rewind the file ptr so that you start reading from the
-        beginning of the file */
-    rewind(inFilePtr);
-
-    /* after doing a readAndParse, you may want to do the following to test the
-        opcode */
-    if (!strcmp(opcode, "add")) {
-        /* do whatever you need to do for opcode "add" */
-    }
-    
-   
     struct label v1[100];
     int arr_size= 0;   // index in array i.e arra
     int i = 0;   // line #
     while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){ // read labels and addresses in to array
         if(*label){
             v1[arr_size].address = i;
-            strcpy(v1[arr_size].name, label);;
-            fprintf(outFilePtr, "label is %s\n", v1[arr_size].name);
-            fprintf(outFilePtr, "address is %d\n", v1[arr_size].address);
+            strcpy(v1[arr_size].name, label);
+           // fprintf(outFilePtr, "label is %s\n", v1[arr_size].name);
+         //   fprintf(outFilePtr, "address is %d\n", v1[arr_size].address);
             arr_size++; }
         i++; }
-    /*
-  
-    rewind(inFilePtr);
-    int temp = 0;
-    while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){
-        if(isNumber(arg2) != 1 && strcmp(opcode,".fill")){
-            temp = search_array(v1, arr_size, arg2);
-            fprintf(outFilePtr, "label is %s\n", arg2);
-            fprintf(outFilePtr, "the fuck is %d\n", temp);
-        } }
-     */
-       
+   
 
-    return(0);
+    
+    rewind(inFilePtr);
+    int line_num = 0;
+    while(readAndParse(inFilePtr, label, opcode, arg0, arg1, arg2)){
+        int decimal = 0;
+        int reg_a = 0;
+        int reg_b = 0;
+        int label_ad = 0;
+        int offset = 0;
+        int temp = 0;
+        if(!strcmp(opcode,".fill")){
+            if(!isNumber(arg0)){
+                decimal = search_array(v1, arr_size, arg0);
+            }
+            else{
+            decimal = atoi(arg0);
+            }
+        }
+        else if(!strcmp(opcode,"noop") || !strcmp(opcode,"halt")){
+            decimal = opcode_num(opcode) << 22;
+        }
+        else{
+            decimal = opcode_num(opcode) << 22;
+            if(atoi(arg0) < 0) { temp = mask_neg(atoi(arg0));}
+            else{ temp = atoi(arg0);}
+            reg_a = temp << 19;
+            if(atoi(arg1) < 0) { temp = mask_neg(atoi(arg1));}
+            else{ temp = atoi(arg1);}
+            reg_b = temp << 16;
+            decimal = decimal | reg_a;
+            decimal = decimal | reg_b;
+            if( !isNumber(arg2)){
+                label_ad = search_array(v1, arr_size, arg2);
+                if(!strcmp(opcode,"beq")){
+                    offset = label_ad - line_num - 1;
+                }
+                else{ offset = search_array(v1, arr_size, arg2);}
+                if(offset < 0) {
+                        offset = mask_neg(offset);
+                }
+                    decimal = decimal |offset;
+                }
+            else{ decimal = decimal | atoi(arg2); };
+        }
+            line_num ++;
+            fprintf(outFilePtr,"%d\n", decimal);
+    
+        }
+                    
+    exit(0);
+    
 }
 // My helper functions
+int check_decimal(int decimal){
+    if(-2147483648 <= decimal && 2147483647 >= decimal ){
+        return 1;
+    }
+    exit(1);
+}
+int check_offset(int offset){
+    if( -2147483648 <= offset && offset >= 2147483647 ){
+        return 1;
+    }
+    exit(1);
+}
 
 int search_array( struct label arr[], int size , char * label){
     int i = 0;
@@ -112,32 +148,31 @@ int search_array( struct label arr[], int size , char * label){
         }
         i++;
     }
-    return - 1;  //later change to exit
+    exit(1) ;  //later change to exit
 }
 int mask_neg(int arg){
-    int num = arg & 7;
+    int num = arg & 65535;
     return num;
 }
 
 int opcode_num(char * opcode){
-    int num = -1;
     if(!strcmp(opcode,"add")){
-        num = 0; }
+        return 0; }
     if(!strcmp(opcode,"nor")){
-        num = 1; }
+        return 1; }
     if(!strcmp(opcode,"lw")){
-        num = 2; }
+        return 2; }
     if(!strcmp(opcode,"sw")){
-        num = 3; }
+        return 3; }
     if(!strcmp(opcode,"beq")){
-        num = 4; }
+        return 4; }
     if(!strcmp(opcode,"jalr")){
-        num = 5; }
+        return 5; }
     if(!strcmp(opcode,"halt")){
-        num = 6; }
+        return 6; }
     if(!strcmp(opcode,"noop")){
-        num = 7; }
-    return num;
+        return 7; }
+    exit(1);
 }
 /*
  * Read and parse a line of the assembly-language file.  Fields are returned

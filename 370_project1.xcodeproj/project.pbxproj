@@ -26,6 +26,7 @@
 		A9708D0B25CB03850097B03C /* 370_project1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 370_project1; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9708D0E25CB03850097B03C /* assembler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = assembler.c; sourceTree = "<group>"; };
 		A9708D1625CB0C5F0097B03C /* test_1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_1.txt; sourceTree = "<group>"; };
+		A9708D1C25CB92850097B03C /* output.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = output.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +61,7 @@
 			children = (
 				A9708D0E25CB03850097B03C /* assembler.c */,
 				A9708D1625CB0C5F0097B03C /* test_1.txt */,
+				A9708D1C25CB92850097B03C /* output.txt */,
 			);
 			path = 370_project1;
 			sourceTree = "<group>";
