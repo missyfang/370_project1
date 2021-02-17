@@ -2,16 +2,6 @@
  * Project 1
  * Assembler code fragment for LC-2K
  */
-// read in label
-// search array
-// mask neg
-// return opcode number
-// if .fill
-// if halt or noop
-// if add or nor
-// else and if beq
-// according appends
-// write to file
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -29,7 +19,7 @@ int search_array( struct label arr[] , int , char *);
 int mask_neg(int);
 int opcode_num(char *);
 int check_offset(int);
-int check_decimal(int);
+int duplicate_label(struct label arr[], int );
 
 int
 main(int argc, char *argv[])
@@ -71,6 +61,7 @@ main(int argc, char *argv[])
             arr_size++; }
         i++; }
    
+    duplicate_label(v1, arr_size);    // check no duplicate label in array
 
     
     rewind(inFilePtr);
@@ -81,8 +72,7 @@ main(int argc, char *argv[])
         int reg_b = 0;
         int label_ad = 0;
         int offset = 0;
-        int temp = 0;
-        if(!strcmp(opcode,".fill")){
+        if(!strcmp(opcode,".fill")){                          // if .fill return arg0
             if(!isNumber(arg0)){
                 decimal = search_array(v1, arr_size, arg0);
             }
@@ -90,34 +80,52 @@ main(int argc, char *argv[])
             decimal = atoi(arg0);
             }
         }
-        else if(!strcmp(opcode,"noop") || !strcmp(opcode,"halt")){
+        else if(!strcmp(opcode,"noop") || !strcmp(opcode,"halt")){   // if noop or jalt return opcode
             decimal = opcode_num(opcode) << 22;
         }
+        else if(!strcmp(opcode,"jalr")){
+            decimal = opcode_num(opcode) << 22;
+            reg_a = atoi(arg0) << 19;
+            reg_b = atoi(arg1) << 16;
+            decimal = decimal | reg_a;
+            decimal = decimal | reg_b;
+        }
+            
         else{
             decimal = opcode_num(opcode) << 22;
-            if(atoi(arg0) < 0) { temp = mask_neg(atoi(arg0));}
-            else{ temp = atoi(arg0);}
-            reg_a = temp << 19;
-            if(atoi(arg1) < 0) { temp = mask_neg(atoi(arg1));}
-            else{ temp = atoi(arg1);}
-            reg_b = temp << 16;
+            reg_a = atoi(arg0) << 19;
+            reg_b = atoi(arg1) << 16;
             decimal = decimal | reg_a;
             decimal = decimal | reg_b;
             if( !isNumber(arg2)){
-                label_ad = search_array(v1, arr_size, arg2);
+                label_ad = search_array(v1, arr_size, arg2);    // search array for label
                 if(!strcmp(opcode,"beq")){
-                    offset = label_ad - line_num - 1;
+                    offset = label_ad - line_num - 1;             // equation for beq offset
                 }
-                else{ offset = search_array(v1, arr_size, arg2);}
-                if(offset < 0) {
-                        offset = mask_neg(offset);
+                else{ offset = search_array(v1, arr_size, arg2);}   // if lw or ls set offset to lavel address
+                if(offset < 0) {                                 // if offset is negative
+                        offset = mask_neg(offset);                    // check in range and mask
+                        decimal = decimal |offset;
                 }
+                else{
+                   offset = check_offset(offset);                 // checking offset in range
+                   decimal = decimal |offset;
+                }
+                }
+            else if(!strcmp(opcode,"add") || !strcmp(opcode,"nor") ){                // if add or nor add arg2
+                decimal = decimal | atoi(arg2);
+            }
+            else{   if(atoi(arg2) < 0){                             // if arg is a number
+                    offset = mask_neg(atoi(arg2));
                     decimal = decimal |offset;
                 }
-            else{ decimal = decimal | atoi(arg2); };
+                else{
+                    offset = check_offset(atoi(arg2));
+                    decimal = decimal | offset; }
+            }
         }
             line_num ++;
-            fprintf(outFilePtr,"%d\n", decimal);
+            fprintf(outFilePtr,"%d\n", decimal);            // print decimalto file
     
         }
                     
@@ -125,19 +133,36 @@ main(int argc, char *argv[])
     
 }
 // My helper functions
-int check_decimal(int decimal){
-    if(-2147483648 <= decimal && 2147483647 >= decimal ){
-        return 1;
+// checks if duplicate labels exist in array
+int duplicate_label(struct label arr[], int size){
+    int i = 0;
+    while (i <= size){
+        int j = i+1;
+        char * temp = arr[i].name;
+        while (j <= size){
+            char * temp2 = arr[j].name;
+            if (!strcmp(temp2, temp)){
+                printf("duplicate label");
+                exit(1);
+            }
+            j++;
+        }
+        i++;
     }
-    exit(1);
+        return 1;
 }
+// check offset in range and cuts off 16 most sig bits 32bit to 16bit int
 int check_offset(int offset){
-    if( -2147483648 <= offset && offset >= 2147483647 ){
-        return 1;
+    int temp = 0;
+    if(offset <= 32767 && -32768 <= offset ){
+        temp = offset  << 16;
+        offset = temp >> 16;
+        return offset;
     }
+    printf("opcode not in range");
     exit(1);
 }
-
+// searches the array for a given label and according address
 int search_array( struct label arr[], int size , char * label){
     int i = 0;
     int address = 0;
@@ -148,13 +173,16 @@ int search_array( struct label arr[], int size , char * label){
         }
         i++;
     }
-    exit(1) ;  //later change to exit
+    exit(1) ;
 }
+// checks offset in range and masks the neg
 int mask_neg(int arg){
-    int num = arg & 65535;
+    check_offset(arg);
+    int num = arg & 0xffff;
     return num;
 }
 
+// return correct number for opcode and exits is not opcode isnt recognized
 int opcode_num(char * opcode){
     if(!strcmp(opcode,"add")){
         return 0; }
@@ -172,6 +200,7 @@ int opcode_num(char * opcode){
         return 6; }
     if(!strcmp(opcode,"noop")){
         return 7; }
+   printf("invalid opcode"); 
     exit(1);
 }
 /*

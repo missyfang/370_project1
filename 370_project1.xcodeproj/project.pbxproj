@@ -23,10 +23,30 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A90EE3BA25CC9C5F007FB971 /* lw_test_pos.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = lw_test_pos.txt; sourceTree = "<group>"; };
+		A90EE3BC25CC9FD9007FB971 /* test_sw_label.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_sw_label.txt; sourceTree = "<group>"; };
+		A90EE3BE25CCA54B007FB971 /* test_sw_neg.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_sw_neg.txt; sourceTree = "<group>"; };
+		A90EE3C025CCA6A9007FB971 /* test_beq_label.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_beq_label.txt; sourceTree = "<group>"; };
+		A90EE3C225CCA849007FB971 /* test_beq_neg.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_beq_neg.txt; sourceTree = "<group>"; };
+		A90EE3C425CCAB4E007FB971 /* test_range_neg.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_range_neg.txt; sourceTree = "<group>"; };
+		A90EE3C825CCABCA007FB971 /* test_range_pos.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_range_pos.txt; sourceTree = "<group>"; };
+		A919CBC525D4B6AF006C4C6D /* mult.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = mult.txt; sourceTree = "<group>"; };
+		A919CBC725D4BBEA006C4C6D /* multi3.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = multi3.txt; sourceTree = "<group>"; };
+		A93783D625D2252100F1ACE1 /* test5.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test5.txt; sourceTree = "<group>"; };
 		A9708D0B25CB03850097B03C /* 370_project1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 370_project1; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9708D0E25CB03850097B03C /* assembler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = assembler.c; sourceTree = "<group>"; };
 		A9708D1625CB0C5F0097B03C /* test_1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_1.txt; sourceTree = "<group>"; };
 		A9708D1C25CB92850097B03C /* output.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = output.txt; sourceTree = "<group>"; };
+		A9708D1F25CC4DB20097B03C /* test_2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_2.txt; sourceTree = "<group>"; };
+		A9708D2125CC59780097B03C /* test_fill_pos.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_fill_pos.txt; sourceTree = "<group>"; };
+		A9708D2325CC5B710097B03C /* test_fill_neg.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_fill_neg.txt; sourceTree = "<group>"; };
+		A9708D2525CC72500097B03C /* test_fill_label.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_fill_label.txt; sourceTree = "<group>"; };
+		A9708D2725CC73700097B03C /* test_lw_neg.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_lw_neg.txt; sourceTree = "<group>"; };
+		A9708D2925CC78120097B03C /* test_duplicate.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_duplicate.txt; sourceTree = "<group>"; };
+		A9708D2B25CC7BA90097B03C /* test_six_label.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_six_label.txt; sourceTree = "<group>"; };
+		A9708D2D25CC7D7B0097B03C /* test_unknow.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_unknow.txt; sourceTree = "<group>"; };
+		A9708D2F25CC837D0097B03C /* test_not_real.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_not_real.txt; sourceTree = "<group>"; };
+		A9708D3225CC8FC90097B03C /* test_lw_labels.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_lw_labels.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +80,28 @@
 			isa = PBXGroup;
 			children = (
 				A9708D0E25CB03850097B03C /* assembler.c */,
+				A919CBC725D4BBEA006C4C6D /* multi3.txt */,
+				A919CBC525D4B6AF006C4C6D /* mult.txt */,
+				A9708D2525CC72500097B03C /* test_fill_label.txt */,
 				A9708D1625CB0C5F0097B03C /* test_1.txt */,
 				A9708D1C25CB92850097B03C /* output.txt */,
+				A9708D1F25CC4DB20097B03C /* test_2.txt */,
+				A9708D2125CC59780097B03C /* test_fill_pos.txt */,
+				A9708D2325CC5B710097B03C /* test_fill_neg.txt */,
+				A9708D2725CC73700097B03C /* test_lw_neg.txt */,
+				A9708D2925CC78120097B03C /* test_duplicate.txt */,
+				A9708D2B25CC7BA90097B03C /* test_six_label.txt */,
+				A9708D2D25CC7D7B0097B03C /* test_unknow.txt */,
+				A9708D2F25CC837D0097B03C /* test_not_real.txt */,
+				A9708D3225CC8FC90097B03C /* test_lw_labels.txt */,
+				A90EE3BA25CC9C5F007FB971 /* lw_test_pos.txt */,
+				A90EE3BC25CC9FD9007FB971 /* test_sw_label.txt */,
+				A90EE3BE25CCA54B007FB971 /* test_sw_neg.txt */,
+				A90EE3C025CCA6A9007FB971 /* test_beq_label.txt */,
+				A90EE3C225CCA849007FB971 /* test_beq_neg.txt */,
+				A90EE3C425CCAB4E007FB971 /* test_range_neg.txt */,
+				A90EE3C825CCABCA007FB971 /* test_range_pos.txt */,
+				A93783D625D2252100F1ACE1 /* test5.txt */,
 			);
 			path = 370_project1;
 			sourceTree = "<group>";
